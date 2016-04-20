@@ -11,7 +11,7 @@ A few words about package, why it could be usefull for someone
 ## Installation using [Composer](http://getcomposer.org/)
 
 ```bash
-$ composer require tonicforhealth/packagename
+$ composer require tonicforhealth/testrail-report-aggregator
 ```
 
 ## Usage
@@ -19,6 +19,33 @@ $ composer require tonicforhealth/packagename
 ```php
 <?php
 
-echo 'Some php code with examples';
+        $testRunId = 1885;
+        $apiUrl = 'https://test.testrail.com/index.php?/api/v2/';
+        $user = dev@test.com;
+        $passwordOrToken = 'chengeMePls'
+        $junitXml = 'fixture/simple_junit_report.xml';
+
+        //$pluginClient = new PluginClient($this->getMockClient());
+        $authentication = new BasicAuth(
+            $user,
+            $passwordOrToken
+        );
+        $plugins[] = new AuthenticationPlugin($authentication);
+
+        $pluginClient = new PluginClient(HttpClientDiscovery::find(), $plugins);
+
+        $httpMethodsClient = new HttpMethodsClient($pluginClient, MessageFactoryDiscovery::find());
+
+        $junitReport = new JunitReport($junitXml);
+
+        $testRailReportA = new JUnitToTestRailRunTransformer($testRunId);
+
+        $testRailSync = new TestRailSync($apiUrl, $httpMethodsClient);
+
+        $testRailReport = $testRailReportA->transform($junitReport);
+
+        $testRailSync->sync($testRailReport);
+
+        $testRailSync->pushResults($testRailReport);
 
 ```
