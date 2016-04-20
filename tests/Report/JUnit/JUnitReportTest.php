@@ -2,8 +2,10 @@
 
 namespace TonicForHealth\ReportAggregator\Test\Report\JUnit;
 
+use PHPUnit_Framework_Error_Warning;
 use PHPUnit_Framework_TestCase;
 use TonicForHealth\ReportAggregator\Report\JUnit\JUnitReport;
+use TonicForHealth\ReportAggregator\Report\JUnit\JUnitReportInvalidXml;
 
 class JUnitReportTest extends PHPUnit_Framework_TestCase
 {
@@ -27,7 +29,11 @@ class JUnitReportTest extends PHPUnit_Framework_TestCase
         $file = sys_get_temp_dir().DIRECTORY_SEPARATOR.'testJUnit.xml';
 
         file_put_contents($file, '<?xml version="1.0" encoding="UTF-8"?>');
-        new JunitReport($file);
+        try {
+            new JunitReport($file);
+        } catch ( PHPUnit_Framework_Error_Warning $e) {
+            throw new JUnitReportInvalidXml($e->getMessage(), $e->getCode(), $e);
+        }
     }
 
     /**

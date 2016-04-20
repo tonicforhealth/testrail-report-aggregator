@@ -60,17 +60,11 @@ class TestRailReportAggregatorTest extends PHPUnit_Framework_TestCase
      */
     public function testProcessJunitReport()
     {
-        $responseBody = file_get_contents($this->getBaseTestrunResponseFixturePath());
-
-        $responseCode = 200;
-
-        $responseMock = $this->getMockResponse($responseBody, $responseCode);
-
-        $this->getMockClient()->addResponse($responseMock);
+        $this->setUpBaseTestrunResponse();
 
         $testRunId = self::BASE_TEST_RUN_ID;
 
-        $junitReport = new JunitReport($this->getSimpleJUnitFixturePath());
+        $junitReport = new JUnitReport($this->getSimpleJUnitFixturePath());
 
         $testRailReportA = new JUnitToTestRailRunTransformer($testRunId);
 
@@ -83,14 +77,7 @@ class TestRailReportAggregatorTest extends PHPUnit_Framework_TestCase
 
         $testRailSync->sync($testRailReport);
 
-        $this->getHttpMethodsClient()
-            ->expects($this->once())
-            ->method('post')
-            ->with(
-                $this->anything(),
-                $this->identicalTo(['Content-type' => 'application/json']),
-                $this->identicalTo($this->getAddResultsRequestFixture())
-            );
+        $this->expectsAddResultRequest();
 
         $testRailSync->pushResults($testRailReport);
 
@@ -173,5 +160,28 @@ class TestRailReportAggregatorTest extends PHPUnit_Framework_TestCase
     protected function getAddResultsRequestFixture()
     {
         return trim(file_get_contents(__DIR__.DIRECTORY_SEPARATOR.'fixture/add_results_request.json'));
+    }
+
+    protected function setUpBaseTestrunResponse()
+    {
+        $responseBody = file_get_contents($this->getBaseTestrunResponseFixturePath());
+
+        $responseCode = 200;
+
+        $responseMock = $this->getMockResponse($responseBody, $responseCode);
+
+        $this->getMockClient()->addResponse($responseMock);
+    }
+
+    protected function expectsAddResultRequest()
+    {
+        $this->getHttpMethodsClient()
+            ->expects($this->once())
+            ->method('post')
+            ->with(
+                $this->anything(),
+                $this->identicalTo(['Content-type' => 'application/json']),
+                $this->identicalTo($this->getAddResultsRequestFixture())
+            );
     }
 }

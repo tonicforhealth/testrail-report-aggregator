@@ -21,11 +21,10 @@ $ composer require tonicforhealth/testrail-report-aggregator
 
         $testRunId = 1885;
         $apiUrl = 'https://test.testrail.com/index.php?/api/v2/';
-        $user = dev@test.com;
+        $user = 'dev@test.com';
         $passwordOrToken = 'chengeMePls'
         $junitXml = 'fixture/simple_junit_report.xml';
 
-        //$pluginClient = new PluginClient($this->getMockClient());
         $authentication = new BasicAuth(
             $user,
             $passwordOrToken
