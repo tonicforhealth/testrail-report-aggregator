@@ -4,7 +4,6 @@ namespace TonicForHealth\ReportAggregator\Sync;
 
 use Http\Client\Common\HttpMethodsClient;
 use Http\Client\Exception as HttpClientException;
-use Psr\Http\Message\RequestInterface;
 use Psr\Http\Message\ResponseInterface;
 use TonicForHealth\ReportAggregator\Entity\Result;
 use TonicForHealth\ReportAggregator\Entity\TestCase;

@@ -40,7 +40,7 @@ class JUnitReport implements ReportInterface
         }
         $DOMDocument = new DOMDocument(static::XML_VERSION, static::XML_ENCODING);
 
-        if (!@$DOMDocument->load($reportPath)) {
+        if (!$DOMDocument->load($reportPath)) {
             throw JUnitReportInvalidXml::invalidJUnitXml($reportPath);
         }
         $MainNode = $DOMDocument->getElementsByTagName(static::XML_REQUIRE_TAG_NAME);
