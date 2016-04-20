@@ -43,23 +43,10 @@ class JUnitToTestRailRunTransformer
 
         /** @var DOMNode $testSuite */
         foreach ($testSuites as $testSuite) {
-            $attr = $testSuite->attributes;
-            if (!$attr->getNamedItem('name')) {
+            if (!$testSuite->attributes->getNamedItem('name')) {
                 continue;
             }
-
-            $name = $attr->getNamedItem('name')->nodeValue;
-            $failures = $this->getFailuresCount($testSuite);
-
-            $cases = new TestCase($name);
-
-            if ($failures > 0) {
-                $this->addFailures($testSuite, $cases);
-            } else {
-                $cases->getResults()->add(new Result());
-            }
-
-            $testRailReport->getCasesCollection()->add($cases);
+            $this->transformTestCase($testSuite, $testRailReport);
         }
 
         return $testRailReport;
@@ -86,7 +73,7 @@ class JUnitToTestRailRunTransformer
      *
      * @return int
      */
-    protected function getFailuresCount($testSuite)
+    protected function getFailuresCount(DOMNode $testSuite)
     {
         $failures = 0;
         if ($testSuite->attributes->getNamedItem('failures')) {
@@ -105,22 +92,52 @@ class JUnitToTestRailRunTransformer
     }
 
     /**
-     * @param $testSuite
-     * @param $cases
+     * @param DOMNode  $testSuite
+     * @param TestCase $case
      */
-    protected function addFailures($testSuite, $cases)
+    protected function addFailures(DOMNode $testSuite, TestCase $case)
     {
         /** @var DOMNode $childNode */
         foreach ($testSuite->childNodes as $childNode) {
             if ($childNode->nodeName === 'failure') {
-                $result = new Result(Result::STATUS_FAILED);
-                if (strlen($childNode->nodeValue) > 0) {
-                    $result->setComment($childNode->nodeValue);
-                } elseif (null !== $childNode->attributes->getNamedItem('message')) {
-                    $result->setComment($childNode->attributes->getNamedItem('message')->nodeValue);
-                }
-                $cases->getResults()->add($result);
+                $this->addFailure($case, $childNode);
             }
         }
+    }
+
+    /**
+     * @param TestCase $case
+     * @param DOMNode  $childNode
+     */
+    protected function addFailure(TestCase $case, DOMNode $childNode)
+    {
+        $result = new Result(Result::STATUS_FAILED);
+        if (strlen($childNode->nodeValue) > 0) {
+            $result->setComment($childNode->nodeValue);
+        } elseif (null !== $childNode->attributes->getNamedItem('message')) {
+            $result->setComment($childNode->attributes->getNamedItem('message')->nodeValue);
+        }
+        $case->getResults()->add($result);
+    }
+
+    /**
+     * @param DOMNode           $testSuite
+     * @param TestRailRunReport $testRailReport
+     */
+    protected function transformTestCase(DOMNode $testSuite, TestRailRunReport $testRailReport)
+    {
+        $attr = $testSuite->attributes;
+        $name = $attr->getNamedItem('name')->nodeValue;
+        $failures = $this->getFailuresCount($testSuite);
+
+        $case = new TestCase($name);
+
+        if ($failures > 0) {
+            $this->addFailures($testSuite, $case);
+        } else {
+            $case->getResults()->add(new Result());
+        }
+
+        $testRailReport->getCasesCollection()->add($case);
     }
 }
