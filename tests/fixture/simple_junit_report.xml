@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testsuites>
+    <testsuite name="IDENT.IDENT2.1.9.4 description" tests="1" failures="0"/>
+    <testsuite name="IDENT.IDENT2.1.9.5 description" tests="1" failures="0"/>
+    <testsuite name="IDENT.IDENT2.1.9.6 description" tests="1" failures="1">
+        <failure
+                message="Some error text of the Test IDENT.IDENT2.1.9.6"/>
+    </testsuite>
+    <testsuite name="IDENT.IDENT2.1.9.7 description" tests="1" failures="0"/>
+    <testsuite name="IDENT.IDENT2.1.9.8 description" tests="1" failures="0"/>
+    <testsuite name="IDENT.IDENT2.1.9.9 description" tests="1" failures="0"/>
+    <testsuite tests="1" failures="0"/>
+    <testsuite name="IDENT.IDENT2.2.1 description" tests="1" failures="0"/>
+    <testsuite name="IDENT.IDENT2.2.2 description" tests="1" failures="0"/>
+    <testsuite name="IDENT.IDENT2.2.3 description" tests="1" failures="0"/>
+    <testsuite name="IDENT.IDENT2.2.4 description" tests="1" failures="0"/>
+    <testsuite name="IDENT.IDENT2.2.5 description" tests="1" failures="0"/>
+    <testsuite name="IDENT.IDENT2.2.6 description" tests="1" failures="0"/>
+    <testsuite name="IDENT.IDENT2.2.7 description" tests="1" failures="0"/>
+    <testsuite name="IDENT.IDENT2.2.8 description" tests="1" failures="0"/>
+    <testsuite name="IDENT.IDENT2.2.9 description" tests="1" failures="0"/>
+    <testsuite name="IDENT.IDENT2.2.10 description" tests="1" failures="0"/>
+    <testsuite name="IDENT.IDENT2.2.11 description" tests="1" failures="0"/>
+    <testsuite name="IDENT.IDENT2.2.12 description" tests="1" failures="0"/>
+    <testsuite name="IDENT.IDENT2.2.13 description" tests="1" failures="0"/>
+    <testsuite name="IDENT.IDENT2.2.14 description" tests="1" failures="0"/>
+    <testsuite name="IDENT.IDENT2.2.15 description" tests="1" failures="0"/>
+    <testsuite name="Some text name #24234" tests="1" failures="0"/>
+    <testsuite name="Other text name #21434" tests="1" failures="0"/>
+    <testsuite name="IDENT.IDENT.2.2.16 description" tests="1" failures="1">
+        <failure
+                message="Some error text of the Test #34242343"/>
+        <failure
+                message="Some error text of the Test #2341234123412343124"/>
+        <failure>Some error text of the Test #2341234123412343124</failure>
+    </testsuite>
+    <testsuite name="IDENT.IDENT2.2.9 description" tests="1">
+        <failure
+                message="Some error text of the Test #123"/>
+    </testsuite>
+</testsuites>
