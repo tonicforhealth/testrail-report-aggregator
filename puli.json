@@ -128,8 +128,8 @@
             "installer": "composer",
             "env": "dev"
         },
-        "psr/cache": {
-            "install-path": "vendor/psr/cache",
+        "pimple/pimple": {
+            "install-path": "vendor/pimple/pimple",
             "installer": "composer"
         },
         "psr/http-message": {

@@ -1,5 +1,6 @@
 /bin/
 /vendor/
 /phpunit.xml
+/app/config/parameter.php
 /.puli
 /build/

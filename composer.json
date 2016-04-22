@@ -15,9 +15,11 @@
         "php-http/message": "~1.2",
         "php-http/discovery": "~0.8.0",
         "puli/cli": "~1.0",
-        "puli/composer-plugin": "~1.0",
         "php-http/plugins": "~1.0",
-        "danielgsims/php-collections": "~1.4"
+        "danielgsims/php-collections": "~1.4",
+        "symfony/console": "^3.0",
+        "pimple/pimple": "^3.0",
+        "puli/composer-plugin":"dev-classmap as 1.0-beta10"
     },
     "require-dev": {
         "phpunit/phpunit": "~4.8|~5.3",
@@ -28,6 +30,12 @@
             "TonicForHealth\\ReportAggregator\\": "src"
         }
     },
+    "repositories": [
+        {
+            "type": "vcs",
+            "url": "https://github.com/thewilkybarkid/composer-plugin"
+        }
+    ],
     "config": {
         "bin-dir": "bin"
     },

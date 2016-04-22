@@ -80,8 +80,6 @@ class TestRailReportAggregatorTest extends PHPUnit_Framework_TestCase
         $this->expectsAddResultRequest();
 
         $testRailSync->pushResults($testRailReport);
-
-
     }
 
     /**
