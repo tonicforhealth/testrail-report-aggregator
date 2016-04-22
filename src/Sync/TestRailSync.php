@@ -44,6 +44,7 @@ class TestRailSync
         if (count($testCases) > 0) {
             foreach ($testCases as $testCase) {
                 $normalizeTitle = static::normalizeStrToCaseIdent($testCase->title);
+
                 $caseId = $testCase->case_id;
                 $testId = $testCase->id;
                 /** @var TestCase $case */
@@ -61,8 +62,9 @@ class TestRailSync
     /**
      * @param TestRailRunReport $testRailReport
      *
-     * @throws TestRailSyncException
      * @throws TestRailSyncClientException
+     * @throws TestRailSyncResultsEmptyException
+     * @throws TestRailSyncServerException
      */
     public function pushResults(TestRailRunReport $testRailReport)
     {
@@ -201,18 +203,23 @@ class TestRailSync
      *
      * @return ResponseInterface
      *
+     * @throws TestRailSyncResultsEmptyException
      * @throws TestRailSyncServerException
      * @throws TestRailSyncClientException
      */
     protected function addResults(TestRailRunReport $testRailReport, $testRunId)
     {
         try {
+            $results = $this->genResultsList($testRailReport);
+            if (count($results) <= 0) {
+                throw TestRailSyncResultsEmptyException::resultsEmpty();
+            }
             $apiUrlResource = $this->getResourceUrl(sprintf('/add_results/%d', $testRunId));
             $response = $this->getHttpMethodsClient()->post(
                 $apiUrlResource,
                 ['Content-type' => 'application/json'],
                 json_encode([
-                    'results' => $this->genResultsList($testRailReport),
+                    'results' => $results,
                 ])
             );
         } catch (HttpClientException $e) {
