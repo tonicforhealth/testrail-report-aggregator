@@ -1,4 +1,4 @@
-# Package name
+# Testrail Report Aggregator
 [![License](https://img.shields.io/github/license/tonicforhealth/testrail-report-aggregator.svg?maxAge=2592000)](LICENSE.md)
 [![Build Status](https://travis-ci.org/tonicforhealth/testrail-report-aggregator.svg?branch=master)](https://travis-ci.org/tonicforhealth/testrail-report-aggregator)
 [![Scrutinizer Code Quality](https://scrutinizer-ci.com/g/tonicforhealth/testrail-report-aggregator/badges/quality-score.png?b=master)](https://scrutinizer-ci.com/g/tonicforhealth/testrail-report-aggregator/?branch=master)
@@ -6,7 +6,7 @@
 [![SensioLabsInsight](https://insight.sensiolabs.com/projects/e067099c-fbc2-4c9f-849c-d3c1960aa870/mini.png)](https://insight.sensiolabs.com/projects/e067099c-fbc2-4c9f-849c-d3c1960aa870)
 
 
-A few words about package, why it could be usefull for someone 
+Tool to aggregation report from JUnit like format to TestRail run report.
 
 ## Installation using [Composer](http://getcomposer.org/)
 
@@ -14,6 +14,22 @@ A few words about package, why it could be usefull for someone
 $ composer require tonicforhealth/testrail-report-aggregator
 ```
 
+## Junit report example 
+
+```xml
+<?xml version="1.0" encoding="UTF-8"?>
+<testsuites>
+    <testsuite name="IDENT.IDENT2.1.9.4 description" tests="1" failures="0"/>
+    <testsuite name="IDENT.IDENT2.1.9.5 description" tests="1" failures="0"/>
+    <testsuite name="IDENT.IDENT2.1.9.6 description" tests="1" failures="1">
+        <failure
+                message="Some error text of the Test IDENT.IDENT2.1.9.6"/>
+    </testsuite>
+        </testsuite>
+    </testsuites>
+
+```
+Case sync use ident which find in the name by using regex ^[\w._-]+\.[\w]+\.[\w]+
 ## Usage
 
 ```php
