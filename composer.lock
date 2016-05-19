@@ -4,8 +4,8 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "hash": "8577f04517fcf2b53e4a03eebbd20d7f",
-    "content-hash": "942a4b22992d6764452ad19cab1ed0ef",
+    "hash": "42f0940e65d515842b392c1d0f2ff157",
+    "content-hash": "4ae02099a166d75553de4b376258f91e",
     "packages": [
         {
             "name": "clue/stream-filter",
@@ -544,39 +544,37 @@
         },
         {
             "name": "php-http/discovery",
-            "version": "v0.8.0",
+            "version": "v0.6.2",
             "source": {
                 "type": "git",
                 "url": "https://github.com/php-http/discovery.git",
-                "reference": "fac1240e8a070b3e2f0e38606941de80c849fa53"
+                "reference": "84779c3eaefe7432e143bc6c30c3e19a70b9d7b3"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/php-http/discovery/zipball/fac1240e8a070b3e2f0e38606941de80c849fa53",
-                "reference": "fac1240e8a070b3e2f0e38606941de80c849fa53",
+                "url": "https://api.github.com/repos/php-http/discovery/zipball/84779c3eaefe7432e143bc6c30c3e19a70b9d7b3",
+                "reference": "84779c3eaefe7432e143bc6c30c3e19a70b9d7b3",
                 "shasum": ""
             },
             "require": {
-                "php": "^5.4|7.*"
+                "php": "^5.4|7.*",
+                "puli/cli": "~1.0.0-beta9",
+                "puli/composer-plugin": "~1.0.0-beta8",
+                "puli/discovery": "~1.0.0-beta8"
             },
             "require-dev": {
                 "henrikbjorn/phpspec-code-coverage": "^1.0",
-                "php-http/httplug": "^1.0",
+                "php-http/httplug": "1.0.0-beta",
                 "php-http/message-factory": "^1.0",
-                "phpspec/phpspec": "^2.4",
-                "puli/composer-plugin": "1.0.0-beta9"
+                "phpspec/phpspec": "^2.4"
             },
             "suggest": {
-                "php-http/message": "Allow to use Guzzle or Diactoros factories",
-                "puli/composer-plugin": "Sets up Puli which is required for Discovery to work. Check http://docs.php-http.org/en/latest/discovery.html for more details."
+                "php-http/message": "Allow to use Guzzle or Diactoros factories"
             },
-            "bin": [
-                "bin/puli.phar"
-            ],
             "type": "library",
             "extra": {
                 "branch-alias": {
-                    "dev-master": "0.9-dev"
+                    "dev-master": "0.7-dev"
                 }
             },
             "autoload": {
@@ -604,7 +602,7 @@
                 "http",
                 "message"
             ],
-            "time": "2016-02-11 09:53:37"
+            "time": "2016-01-04 10:40:50"
         },
         {
             "name": "php-http/guzzle6-adapter",
@@ -1151,16 +1149,16 @@
         },
         {
             "name": "puli/composer-plugin",
-            "version": "1.0.0-beta10",
+            "version": "dev-master",
             "source": {
                 "type": "git",
                 "url": "https://github.com/puli/composer-plugin.git",
-                "reference": "89f1d4df4cc24dc8025e3afb98b5fab0bd2df831"
+                "reference": "4ce2449aa3db3bbd8d8737e29fe8b9b216d42835"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/puli/composer-plugin/zipball/89f1d4df4cc24dc8025e3afb98b5fab0bd2df831",
-                "reference": "89f1d4df4cc24dc8025e3afb98b5fab0bd2df831",
+                "url": "https://api.github.com/repos/puli/composer-plugin/zipball/4ce2449aa3db3bbd8d8737e29fe8b9b216d42835",
+                "reference": "4ce2449aa3db3bbd8d8737e29fe8b9b216d42835",
                 "shasum": ""
             },
             "require": {
@@ -1205,7 +1203,7 @@
             ],
             "description": "Integrates Composer into the Puli package manager.",
             "homepage": "http://puli.io",
-            "time": "2016-03-31 12:15:22"
+            "time": "2016-03-31 12:15:01"
         },
         {
             "name": "puli/discovery",
@@ -3200,9 +3198,18 @@
             "time": "2016-03-04 07:55:57"
         }
     ],
-    "aliases": [],
+    "aliases": [
+        {
+            "alias": "0.8.0",
+            "alias_normalized": "0.8.0.0",
+            "version": "0.6.2.0",
+            "package": "php-http/discovery"
+        }
+    ],
     "minimum-stability": "dev",
-    "stability-flags": [],
+    "stability-flags": {
+        "puli/composer-plugin": 20
+    },
     "prefer-stable": true,
     "prefer-lowest": false,
     "platform": [],
