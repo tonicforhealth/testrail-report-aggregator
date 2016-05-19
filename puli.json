@@ -132,10 +132,6 @@
             "install-path": "vendor/pimple/pimple",
             "installer": "composer"
         },
-        "psr/cache": {
-            "install-path": "vendor/psr/cache",
-            "installer": "composer"
-        },
         "psr/http-message": {
             "install-path": "vendor/psr/http-message",
             "installer": "composer"
