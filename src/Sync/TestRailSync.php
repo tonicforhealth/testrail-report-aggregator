@@ -14,6 +14,7 @@ use TonicForHealth\ReportAggregator\Report\TestRail\TestRailRunReport;
  */
 class TestRailSync
 {
+    const RESULT_COMMENT_FORMAT = '%result_comment%';
     /**
      * @var string;
      */
@@ -25,13 +26,26 @@ class TestRailSync
     private $httpMethodsClient;
 
     /**
-     * TestRailSync constructor.
+     * @var string
      */
-    public function __construct($apiUrl, HttpMethodsClient $httpMethodsClient)
+    private $commentFormat = self::RESULT_COMMENT_FORMAT;
+
+    /**
+     * TestRailSync constructor.
+     *
+     * @param string            $apiUrl
+     * @param HttpMethodsClient $httpMethodsClient
+     * @param null|string       $commentFormat
+     */
+    public function __construct($apiUrl, HttpMethodsClient $httpMethodsClient, $commentFormat = null)
     {
         $this->setApiUrl($apiUrl);
 
         $this->setHttpMethodsClient($httpMethodsClient);
+
+        if (null !== $commentFormat) {
+            $this->setCommentFormat($commentFormat);
+        }
     }
 
     /**
@@ -85,6 +99,22 @@ class TestRailSync
     public function getHttpMethodsClient()
     {
         return $this->httpMethodsClient;
+    }
+
+    /**
+     * @return string
+     */
+    public function getCommentFormat()
+    {
+        return $this->commentFormat;
+    }
+
+    /**
+     * @param string $commentFormat
+     */
+    public function setCommentFormat($commentFormat)
+    {
+        $this->commentFormat = $commentFormat;
     }
 
     /**
@@ -166,7 +196,7 @@ class TestRailSync
         $result = (object) [
             'test_id' => $testCase->getTestId(),
             'status_id' => $result->getStatusId(),
-            'comment' => $result->getComment(),
+            'comment' => $this->genFormatedComment($testCase, $result),
         ];
 
         return $result;
@@ -250,5 +280,25 @@ class TestRailSync
 
             throw TestRailSyncServerException::apiServerError($apiUrlResource, $httpCode, $errorStr);
         }
+    }
+
+    /**
+     * @param TestCase $testCase
+     * @param Result   $result
+     *
+     * @return object
+     */
+    private function genFormatedComment(TestCase $testCase, Result $result)
+    {
+        $arrayArgs = [
+            '%case_id%' => $testCase->getId(),
+            '%case_test_id%' => $testCase->getTestId(),
+            '%case_title%' => $testCase->getTitle(),
+            '%result_id%' => $result->getId(),
+            '%result_comment%' => $result->getComment(),
+            '%result_status_id%' => $result->getStatusId(),
+        ];
+
+        return str_replace(array_keys($arrayArgs), array_values($arrayArgs), $this->getCommentFormat());
     }
 }

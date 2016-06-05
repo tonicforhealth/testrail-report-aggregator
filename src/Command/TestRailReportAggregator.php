@@ -80,6 +80,12 @@ class TestRailReportAggregator extends Command
                 InputOption::VALUE_OPTIONAL,
                 'Report type',
                 'junit'
+            )->addOption(
+                'comment_format',
+                null,
+                InputOption::VALUE_NONE,
+                'Report comment format, args(%case_id% %case_test_id% %case_title% %result_id% %result_comment% %result_status_id%)',
+                null
             );
     }
 
@@ -92,6 +98,7 @@ class TestRailReportAggregator extends Command
         $this->initDependency();
         $reportFilePath = $input->getArgument('report_file');
         $reportType = $input->getOption('report_type');
+        $commentFormat = $input->getOption('comment_format');
         $runId = $input->getArgument('run_id');
         $testRailReport = null;
         if ($reportType === 'junit') {
@@ -99,6 +106,11 @@ class TestRailReportAggregator extends Command
             $testRailReportA = new JUnitToTestRailRunTransformer($runId);
             $testRailReport = $testRailReportA->transform($report);
         }
+
+        if (null !== $commentFormat) {
+            $this->getTestrailSync()->setCommentFormat($commentFormat);
+        }
+
         if (null !== $testRailReport) {
             $this->getTestrailSync()->sync($testRailReport);
             $this->getTestrailSync()->pushResults($testRailReport);
