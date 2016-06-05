@@ -83,7 +83,7 @@ class TestRailReportAggregator extends Command
             )->addOption(
                 'comment_format',
                 null,
-                InputOption::VALUE_NONE,
+                InputOption::VALUE_OPTIONAL,
                 'Report comment format, args(%case_id% %case_test_id% %case_title% %result_id% %result_comment% %result_status_id%)',
                 null
             );
