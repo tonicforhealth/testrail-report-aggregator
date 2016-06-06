@@ -58,16 +58,17 @@ class TestRailSync
         if (count($testCases) > 0) {
             foreach ($testCases as $testCase) {
                 $normalizeTitle = static::normalizeStrToCaseIdent($testCase->title);
-
                 $caseId = $testCase->case_id;
                 $testId = $testCase->id;
                 /** @var TestCase $case */
-                $case = $testRailRunReport->getCasesCollection()->find(
-                    $this->findByNormalizeTitleCallback($normalizeTitle)
-                );
-                if ($case) {
-                    $case->setId($caseId);
-                    $case->setTestId($testId);
+                if (!empty($normalizeTitle)) {
+                    $case = $testRailRunReport->getCasesCollection()->find(
+                        $this->findByNormalizeTitleCallback($normalizeTitle)
+                    );
+                    if ($case) {
+                        $case->setId($caseId);
+                        $case->setTestId($testId);
+                    }
                 }
             }
         }
