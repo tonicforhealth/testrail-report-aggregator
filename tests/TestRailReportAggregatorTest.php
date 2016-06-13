@@ -106,14 +106,14 @@ class TestRailReportAggregatorTest extends PHPUnit_Framework_TestCase
      */
     protected function getMockResponse($responseBody, $responseCode)
     {
-        $streamMock = $this->getMock(StreamInterface::class);
+        $streamMock = $this->getMockBuilder(StreamInterface::class)->getMock();
 
         $streamMock
             ->expects($this->once())
             ->method('getContents')
             ->willReturn($responseBody);
 
-        $response = $this->getMock(ResponseInterface::class);
+        $response = $this->getMockBuilder(ResponseInterface::class)->getMock ();
 
         $response->expects($this->once())->method('getBody')->willReturn($streamMock);
         $response->expects($this->once())->method('getStatusCode')->willReturn($responseCode);
